@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Books </title>
+
+
     <style>
         table
         {
@@ -27,36 +29,42 @@
     </style>
 </head>
 <body>
-
-<?php
-$servername="localhost";
-$username="root";
-$password="";
-$dbname="proiect1";
-
-try {
-    $conexiune = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $conexiune->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //creare tabela
-    //echo "S-a stabilit conexiunea";
-    $query="SELECT * FROM books";
-    $data= $conexiune->query($query);
-    echo"<table>
+<div class="col-md-12" >
+<h2>CARTI</h2>
+</div>
+<div class="col-md-12 text-right">
+<a class="btn btn-success" href="create.php" >Creeaza o carte</a>
+</div>
+<table class="table-bordered">
     <tr>
-        <th>Id</th>
         <th>Title</th>
         <th>Author name</th>
         <th>Publisher name</th>
         <th>Publish year</th>
         <th>Created at</th>
         <th>Updated at</th>
-    </tr>";
+    </tr>
+<?php
+
+require "stylesheets.php";
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="tema1";
+
+try {
+    $conexiune = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+    $conexiune->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //creare tabela
+    //echo "S-a stabilit conexiunea";
+    $query="SELECT * FROM carti1";
+    $data= $conexiune->query($query);
     foreach ($data as $row)
     {
-        echo "<tr><td>" . $row["id"] . "</td><td>" . $row["title"] . "</td><td>" .
+        echo "<tr><td>" . $row["id"]. "</td><td>" . $row["title"] . "</td><td>" .
             $row["author_name"] . "</td><td>" . $row["publisher_name"] .
             "</td><td>" . $row["publish_year"] . "</td><td>" . $row["created_at"] .
-            "</td><td>" . $row["updated_at"] . "</td></tr>";
+            "</td><td>" . $row["updated_at"] . "</td><td><a href='edit.php'><button type='button'>EDIT</a></button></td><td><button type='button'><a href='delete.php'>DELETE</a></button></td></tr>";
 
     }
     echo "</table>";
