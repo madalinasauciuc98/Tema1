@@ -1,4 +1,8 @@
 <?php
+function loadView($viewName)
+{
+   require $viewName;
+}
 
 function dd($parameter)
 {
